@@ -9,8 +9,16 @@ import { Route,Routes } from 'react-router-dom'
 import Home from './Pages/Home'
 import ProductCard from './Components/ProductCard'
 import ProductDetail from './Pages/ProductDetail'
+import Cart from './Pages/Cart'
+import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
 function App() {
   const [count, setCount] = useState(0)
+   const cartItems = useSelector((state) => state.cart.items);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   return (
     <div >
@@ -19,7 +27,7 @@ function App() {
    <Routes>
     <Route path="/" element={<Home></Home>}></Route>
     <Route path="/product/:id" element={<ProductDetail></ProductDetail>}></Route>
-    
+    <Route path="/cart" element={<Cart></Cart>}  ></Route>
    </Routes>
 
     </div>

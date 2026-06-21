@@ -1,10 +1,25 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { addtoCart } from "../Redux/Slices/CartSlice";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
+
 
 function ProductDetail() {
     const [product, setProduct] = useState(null);
     const { id } = useParams();
 
+    const dispatch=useDispatch();
+    function cartHandler(){
+ 
+        console.log("cart handler clicked")
+          toast.success("Product added to cart");
+        console.log(product)
+        dispatch(addtoCart(product))
+    }
+    const cartItems = useSelector((state) => state.cart.items);
+console.log(cartItems);
     useEffect(() => {
         async function fetchData() {
             const response = await fetch(`https://dummyjson.com/products/${id}`);
@@ -116,7 +131,7 @@ function ProductDetail() {
 
                     {/* Action Buttons */}
                     <div className="flex gap-3 mt-6">
-                        <button
+                        <button onClick={cartHandler}
                             disabled={!inStock}
                             className="flex-1 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-xl transition-colors duration-300"
                         >

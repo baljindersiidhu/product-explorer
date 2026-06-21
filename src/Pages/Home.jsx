@@ -1,7 +1,7 @@
 import ProductCard from "../Components/ProductCard";
 function Home(){
     return (
-        <div>
+        <div className="mt-10">
             <ProductCard></ProductCard>
         </div>
     )
